@@ -5,6 +5,6 @@ form enctype="multipart/form-data"
   .inputs
     label.filename for="file" = "{{ filename }}"
     label.button for="file" Browse
-    input#file name="file" type="file" @change="changeFile"
+    input#file(name="file" type="file" @change="changeFile")
       
-v-client-table :data="persons" :columns="tableColumns" :options="tableOptions"
+/ v-client-table :data="persons" :columns="tableColumns" :options="tableOptions"
