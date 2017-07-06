@@ -8,3 +8,21 @@ form enctype="multipart/form-data"
     input#file(name="file" type="file" @change="changeFile")
       
 / v-client-table :data="persons" :columns="tableColumns" :options="tableOptions"
+
+table
+  thead
+    tr
+      th: span Last name
+      th: span First name
+      th: span Middle initial
+      th: span Pet
+      th: span Birthday
+      th: span Favorite color
+  tbody
+    tr v-for="person in persons"
+      th = "{{ person.last }}"
+      th = "{{ person.first }}"
+      th = "{{ person.middle }}"
+      th(:class="person.pet | downcase") = "{{ person.pet }}"
+      th = "{{ person.birthday | date }}"
+      th = "{{ person.color }}"

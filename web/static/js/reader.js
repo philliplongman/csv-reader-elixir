@@ -9,24 +9,24 @@ Vue.use(VueResource)
 // Vue.use(ClientTable)
 
 
-let tableOptions = {
-  columns: [
-    "last_name", "first_name", "middle_initial", "pet", "birthday", "color"
-  ],
-  options: {
-    columnsClasses: { pet: "pet" },
-    filterable: false,
-    perPage: 100,
-    rowClassCallback: row => { return row.pet.toLowerCase() },
-    skin: "",
-    sortIcon: {
-      base: "",
-      down: "active descending",
-      up:   "active ascending"
-    },
-    texts: { noResults: "No records" }
-  }
-}
+// let tableOptions = {
+//   columns: [
+//     "last_name", "first_name", "middle_initial", "pet", "birthday", "color"
+//   ],
+//   options: {
+//     columnsClasses: { pet: "pet" },
+//     filterable: false,
+//     perPage: 100,
+//     rowClassCallback: row => { return row.pet.toLowerCase() },
+//     skin: "",
+//     sortIcon: {
+//       base: "",
+//       down: "active descending",
+//       up:   "active ascending"
+//     },
+//     texts: { noResults: "No records" }
+//   }
+// }
 
 
 let reader = new Vue({
@@ -34,14 +34,18 @@ let reader = new Vue({
   data: {
     filename: "",
     persons: [],
-    tableColumns: tableOptions["columns"],
-    tableOptions: tableOptions["options"]
+    // tableColumns: tableOptions["columns"],
+    // tableOptions: tableOptions["options"]
   },
   http: {
     root: "/root",
     emulateJSON: true
   },
   filters: {
+    date: function (value) {
+      if (!value) return ""
+      return moment(value).format("M/D/YYYY")
+    },
     downcase: function (value) {
       if (!value) return ""
       return value.toString().toLowerCase()
@@ -50,7 +54,7 @@ let reader = new Vue({
   methods: {
 
     changeFile: function (e) {
-      this.$http.post("/", this.getFormData(e)).then(this.updateData)
+      this.$http.post("/api/upload", this.getFormData(e)).then(this.updateData)
     },
 
     getFormData: function (e) {
@@ -63,7 +67,7 @@ let reader = new Vue({
 
     updateData: function (response) {
       this.filename = response.body.filename
-      this.persons = response.body.people
+      this.persons = response.body.persons
       this.persons.forEach( function (person) {
         person["birthday"] = moment(person["birthday"])
       })
