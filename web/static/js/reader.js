@@ -2,31 +2,31 @@
 
 import Vue from "vue"
 import VueResource from "vue-resource"
-// import {ClientTable, Event} from "vue-tables-2"
+import {ClientTable, Event} from "vue-tables-2"
 import moment from "moment"
 
 Vue.use(VueResource)
-// Vue.use(ClientTable)
+Vue.use(ClientTable)
 
 
-// let tableOptions = {
-//   columns: [
-//     "last_name", "first_name", "middle_initial", "pet", "birthday", "color"
-//   ],
-//   options: {
-//     columnsClasses: { pet: "pet" },
-//     filterable: false,
-//     perPage: 100,
-//     rowClassCallback: row => { return row.pet.toLowerCase() },
-//     skin: "",
-//     sortIcon: {
-//       base: "",
-//       down: "active descending",
-//       up:   "active ascending"
-//     },
-//     texts: { noResults: "No records" }
-//   }
-// }
+let tableOptions = {
+  columns: [
+    "last", "first", "middle", "pet", "birthday", "color"
+  ],
+  options: {
+    columnsClasses: { pet: "pet" },
+    filterable: false,
+    perPage: 100,
+    rowClassCallback: row => { return row.pet.toLowerCase() },
+    skin: "",
+    sortIcon: {
+      base: "",
+      down: "active descending",
+      up:   "active ascending"
+    },
+    texts: { noResults: "No records" }
+  }
+}
 
 
 let reader = new Vue({
@@ -34,18 +34,14 @@ let reader = new Vue({
   data: {
     filename: "",
     persons: [],
-    // tableColumns: tableOptions["columns"],
-    // tableOptions: tableOptions["options"]
+    tableColumns: tableOptions["columns"],
+    tableOptions: tableOptions["options"]
   },
   http: {
     root: "/root",
     emulateJSON: true
   },
   filters: {
-    date: function (value) {
-      if (!value) return ""
-      return moment(value).format("M/D/YYYY")
-    },
     downcase: function (value) {
       if (!value) return ""
       return value.toString().toLowerCase()
