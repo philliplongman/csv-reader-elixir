@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: path.resolve(__dirname, "./web/static/js/app.js"),
@@ -20,6 +21,13 @@ module.exports = {
           },
         }],
       },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
+      }
     ],
   },
   plugins: [
@@ -28,7 +36,8 @@ module.exports = {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
+    new ExtractTextPlugin("app.css")
   ],
   resolve: {
     alias: { "vue$": "vue/dist/vue.esm.js" }
