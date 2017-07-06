@@ -1,4 +1,5 @@
 defmodule Reader.Person do
+  use Reader.Web, :model
   alias Reader.Person
 
   defstruct [:first, :middle, :last, :birthday, :pet, :color]

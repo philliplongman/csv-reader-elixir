@@ -1,4 +1,5 @@
 defmodule Reader.CSV do
+  use Reader.Web, :model
   alias Reader.Person
 
   def read(file) do
