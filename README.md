@@ -1,19 +1,41 @@
-# Reader
+# CSV Reader
 
-To start your Phoenix app:
+A full-stack technical challenge I took too seriously, with asynchronous Vue.js on the front end and Elixir Phoenix on the back.
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `npm install`
-  * Start Phoenix endpoint with `mix phoenix.server`
+([Also with a Ruby back end](https://csv-reader.herokuapp.com))
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+### Requirement summary:
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+* Write a web app that will accept CSV files in three slightly different formats and display them as a sortable table.
 
-## Learn more
+[Try it here](https://csv-reader-elixir.herokuapp.com/) with one of the test files below.
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+Test files (right click then select, "Save link as"):
+* [Comma separated file](https://github.com/philliplongman/fullstack-challenge-ruby/raw/master/test/fixtures/commas.csv)
+* [Pipe separated file](https://github.com/philliplongman/fullstack-challenge-ruby/raw/master/test/fixtures/pipes.csv)
+* [Space separated file](https://github.com/philliplongman/fullstack-challenge-ruby/raw/master/test/fixtures/spaces.csv)
+
+## Design decisions
+
+Since the project was so simple and didn't call for any persistence, I originally built it in Ruby with Sinatra. I thought it would be fun to submit the files asynchronously and return data via JSON for a single-page app, using Vue.js on the front end.
+
+Converting such a simple app seemed like a great first project for Elixir Phoenix. That was true on the back end. The front was a little more complicated. Brunch didn't play well with Vue, so I had to rip it out and use webpack to serve assets.
+
+I didn't want to convert my Slim markup to wordier EEx, so I added PhoenixSlime. Later, an unsolvable JS problem with one of the Vue dependencies turned out to just be a slight syntax difference between Slim & Slime. Serves me right for being lazy.
+
+I'll be adding some tests with ExUnit very soon.
+
+## Project info
+
+To run:
+```
+mix deps.get
+npm install
+mix phoenix.server
+```
+The app will be served at [localhost:4000](http://localhost:4000).
+
+To test:
+```
+mix test
+```
