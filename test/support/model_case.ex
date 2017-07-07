@@ -23,5 +23,7 @@ defmodule Reader.ModelCase do
     end
   end
 
-  setup tags, do: :ok
+  # setup tags do
+  #   :ok
+  # end
 end
