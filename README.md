@@ -17,21 +17,19 @@ Test files (right click then select, "Save link as"):
 
 ## Design decisions
 
-#### Original
+### Original
 
 Since the project was so simple and didn't call for any persistence, I originally built it in Ruby with Sinatra. I thought it would be fun to submit the files asynchronously and return data via JSON for a single-page app, using Vue.js on the front end.
 
-#### Conversion
+### Conversion
 
-Converting the app seemed like a great first project for Elixir Phoenix. That was true on the back end. The front was a little more complicated.
+Converting the app seemed like a great first project for Elixir Phoenix. That was true on the back end.
 
-Brunch didn't play well with Vue, so I had to rip it out and use webpack to serve assets.
+The front was a little more complicated. Brunch didn't play well with Vue, so I had to rip it out and use webpack to serve assets. I didn't want to convert my Slim files to the wordier EEx format, so I added PhoenixSlime. Later, an unsolvable JS problem with one of the Vue dependencies turned out to just be a slight syntax difference between Slim & Slime. If I have the opportunity in the future, I'd like to replace all of it with Elm.
 
-I didn't want to convert my Slim files to the wordier EEx format, so I added PhoenixSlime. Later, an unsolvable JS problem with one of the Vue dependencies turned out to just be a slight syntax difference between Slim & Slime. Serves me right for being lazy.
+I used ExUnit and Wallaby for testing. Wallaby with PhantomJS allowed me to test JavaScript integration, but I had to use Babel to transpile down to ES2015 so that PhantomJS could see Vue.
 
-If I have the opportunity later, I'd like to replace the front end with Elm.
 
-I used ExUnit and Wallaby for testing. Wallaby with PhantomJS allowed me to test JavaScript integration, but I had to use Babel to transpile down to ES2015.
 
 ## Project info
 
