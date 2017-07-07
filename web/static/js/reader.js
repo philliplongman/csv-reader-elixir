@@ -17,7 +17,7 @@ let tableOptions = {
     columnsClasses: { pet: "pet" },
     filterable: false,
     perPage: 100,
-    rowClassCallback: row => { return row.pet.toLowerCase() },
+    rowClassCallback: row => { return ["person", row.pet.toLowerCase()] },
     skin: "",
     sortIcon: {
       base: "",

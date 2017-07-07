@@ -1,6 +1,7 @@
 /* fonts and layout */
 
 body {
+  background: #ffffff;
   color: #a7a9ac;
   font-family: sans-serif;
   font-size: 15px;
@@ -14,6 +15,7 @@ form {
 
 main {
   width: 100%;
+  margin: auto;
   max-width: 1200px;
 }
 
@@ -80,7 +82,7 @@ th {
   width: 306px;
 }
 
-#file {
+.hidden {
   display: none;
 }
 
