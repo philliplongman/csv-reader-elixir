@@ -24,3 +24,6 @@ erl_crash.dump
 /config/prod.secret.exs
 
 /test/screenshots/
+
+/web/elm/elm-stuff/build-artifacts/
+/web/elm/elm-stuff/packages/
