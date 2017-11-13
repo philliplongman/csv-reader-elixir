@@ -9,15 +9,15 @@ Vue.use(VueResource)
 Vue.use(ClientTable)
 
 
-let tableOptions = {
-  columns: [
+const table = {
+  tableColumns: [
     "last", "first", "middle", "pet", "birthday", "color"
   ],
-  options: {
+  tableOptions: {
     columnsClasses: { pet: "pet" },
     filterable: false,
     perPage: 100,
-    rowClassCallback: row => { return ["person", row.pet.toLowerCase()] },
+    rowClassCallback: (row) => ["person", row.pet.toLowerCase()],
     skin: "",
     sortIcon: {
       base: "",
@@ -29,31 +29,29 @@ let tableOptions = {
 }
 
 
-let reader = new Vue({
+const reader = new Vue({
   el: "main",
   data: {
     filename: "",
     persons: [],
-    tableColumns: tableOptions["columns"],
-    tableOptions: tableOptions["options"]
+    ...table
   },
   http: {
     root: "/root",
     emulateJSON: true
   },
   filters: {
-    downcase: function (value) {
+    downcase: (value) => {
       if (!value) return ""
       return value.toString().toLowerCase()
     }
   },
   methods: {
-
-    changeFile: function (e) {
+    changeFile: (e) => {
       this.$http.post("/api/upload", this.getFormData(e)).then(this.updateData)
     },
 
-    getFormData: function (e) {
+    getFormData: (e) => {
       let file = e.target.files[0]
       let data = new FormData()
       data.append("file", file, file.name)
@@ -61,7 +59,7 @@ let reader = new Vue({
       return data
     },
 
-    updateData: function (response) {
+    updateData: (response) => {
       this.filename = response.body.filename
       this.persons = response.body.persons
       this.persons.forEach( function (person) {
