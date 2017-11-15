@@ -28,8 +28,7 @@ init =
   let
     model =
       { filename = ""
-      , people =
-        [ Person 1 "No records" "" "" "" "" "" ]
+      , people = []
       , tableState = Table.initialSort "last"
       }
 

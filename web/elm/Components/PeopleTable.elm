@@ -13,9 +13,19 @@ import Components.PeopleTable.PetColumn exposing (petColumn)
 
 tableView : Model -> Html Msg
 tableView { people, tableState } =
-  div []
-    [ Table.view config tableState people
-    ]
+  let
+    message =
+      if List.isEmpty people then
+        div [ class "empty" ] [ text "No records" ]
+
+      else
+        div [] []
+
+  in
+    div []
+      [ Table.view config tableState people
+      , message
+      ]
 
 
 config : Table.Config Person Msg

@@ -11915,6 +11915,14 @@ var _user$project$Msg$UploadFile = function (a) {
 	return {ctor: 'UploadFile', _0: a};
 };
 
+var _user$project$Model$init = function () {
+	var model = {
+		filename: '',
+		people: {ctor: '[]'},
+		tableState: _evancz$elm_sortable_table$Table$initialSort('last')
+	};
+	return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+}();
 var _user$project$Model$Model = F3(
 	function (a, b, c) {
 		return {filename: a, people: b, tableState: c};
@@ -11923,18 +11931,6 @@ var _user$project$Model$Person = F7(
 	function (a, b, c, d, e, f, g) {
 		return {index: a, last: b, first: c, middle: d, pet: e, birthday: f, color: g};
 	});
-var _user$project$Model$init = function () {
-	var model = {
-		filename: '',
-		people: {
-			ctor: '::',
-			_0: A7(_user$project$Model$Person, 1, 'No records', '', '', '', '', ''),
-			_1: {ctor: '[]'}
-		},
-		tableState: _evancz$elm_sortable_table$Table$initialSort('last')
-	};
-	return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-}();
 
 var _user$project$Components_Count$countView = function (_p0) {
 	var _p1 = _p0;
@@ -12222,13 +12218,33 @@ var _user$project$Components_PeopleTable$config = _evancz$elm_sortable_table$Tab
 	});
 var _user$project$Components_PeopleTable$tableView = function (_p5) {
 	var _p6 = _p5;
+	var _p7 = _p6.people;
+	var message = _elm_lang$core$List$isEmpty(_p7) ? A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('empty'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('No records'),
+			_1: {ctor: '[]'}
+		}) : A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{ctor: '[]'});
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: A3(_evancz$elm_sortable_table$Table$view, _user$project$Components_PeopleTable$config, _p6.tableState, _p6.people),
-			_1: {ctor: '[]'}
+			_0: A3(_evancz$elm_sortable_table$Table$view, _user$project$Components_PeopleTable$config, _p6.tableState, _p7),
+			_1: {
+				ctor: '::',
+				_0: message,
+				_1: {ctor: '[]'}
+			}
 		});
 };
 
