@@ -1,6 +1,8 @@
 {
     "elm-lang/virtual-dom": "2.0.4",
+    "evancz/elm-sortable-table": "1.0.1",
     "elm-lang/html": "2.0.0",
     "elm-community/string-extra": "1.4.0",
+    "justinmimbs/elm-date-extra": "2.0.3",
     "elm-lang/core": "5.1.1"
 }

@@ -1,4 +1,8 @@
 module Msg exposing (..)
 
+import Table
 
-type Msg = Upload String
+
+type Msg
+  = UploadFile String
+  | SetTableState Table.State

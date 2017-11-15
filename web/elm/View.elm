@@ -6,8 +6,8 @@ import Model exposing (..)
 import Msg exposing (..)
 
 import Components.Count exposing (countView)
-import Components.Table exposing (tableView)
-import Components.Uploader exposing (uploaderView)
+import Components.PeopleTable exposing (tableView)
+import Components.FileUploader exposing (uploaderView)
 
 
 view : Model -> Html Msg

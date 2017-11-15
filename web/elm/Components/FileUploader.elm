@@ -1,4 +1,4 @@
-module Components.Uploader exposing (uploaderView)
+module Components.FileUploader exposing (uploaderView)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, enctype, for, id, name, type_)
@@ -20,7 +20,7 @@ uploaderView model =
         , class "hidden"
         , name "file"
         , type_ "file"
-        , onInput Upload
+        , onInput UploadFile
         ]
         []
       ]

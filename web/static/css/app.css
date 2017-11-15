@@ -95,7 +95,7 @@ th {
   font-weight: bold;
 }
 
-.VueTables__sort-icon {
+th span {
   background-position: center right;
   background-repeat: no-repeat;
   background-size: 15px;
@@ -111,34 +111,37 @@ th {
   background-image: url("/images/up.png");
 }
 
-.VuePagination {
-  display: none;
-}
-
 
 /* pets */
 
-td.pet {
+.pet-both,
+.pet-cat,
+.pet-dog,
+.pet-none {
   background-position: center left;
   background-repeat: no-repeat;
   background-size: 30px;
+}
+
+.pet-both,
+.pet-cat,
+.pet-dog {
   padding-left: 40px;
 }
 
-tr.both td.pet{
+.pet-both {
   background-image: url("/images/both.png");
 }
 
-tr.cat td.pet{
+.pet-cat {
   background-image: url("/images/cat.png");
 }
 
-tr.dog td.pet{
+.pet-dog {
   background-image: url("/images/dog.png");
 }
 
-tr.none td.pet{
-  padding-left: inherit;
+.pet-none {
   color: #a7a9ac;
   font-style: italic;
 }

@@ -12,12 +12,12 @@ main : Program Never Model Msg
 main =
   Html.program
     { init = init
-    , view = view
     , update = update
-    , subscriptions = always <| Sub.none
+    , view = view
+    , subscriptions = subscriptions
     }
 
 
-init : (Model, Cmd Msg)
-init =
-  initialModel ! [ Cmd.none ]
+subscriptions : Model -> Sub Msg
+subscriptions model =
+  Sub.none
