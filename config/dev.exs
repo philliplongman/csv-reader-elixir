@@ -11,7 +11,8 @@ config :reader, Reader.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [npm: ["run", "watch"]]
+  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
+                    cd: Path.expand("../", __DIR__)]]
 
 
 # Watch static and templates for browser reloading.
@@ -21,7 +22,7 @@ config :reader, Reader.Endpoint,
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{web/views/.*(ex)$},
-      ~r{web/templates/.*(eex|slim|slime)$}
+      ~r{web/templates/.*(eex)$}
     ]
   ]
 

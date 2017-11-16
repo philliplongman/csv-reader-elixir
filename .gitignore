@@ -24,3 +24,8 @@ erl_crash.dump
 /config/prod.secret.exs
 
 /test/screenshots/
+
+web/elm/elm-stuff/
+web/elm/elm-stuff/
+
+/vue/

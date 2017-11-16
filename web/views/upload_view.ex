@@ -1,10 +1,10 @@
 defmodule Reader.UploadView do
   use Reader.Web, :view
 
-  def render("create.json", %{filename: filename, persons: persons}) do
+  def render("create.json", %{filename: filename, people: people}) do
     %{
       filename: filename,
-      persons: persons
+      people: people
     }
   end
 end

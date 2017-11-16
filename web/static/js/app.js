@@ -1,22 +1,25 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
+import Elm from "./main"
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
-import "phoenix_html"
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+const readFileData = () => {
+  let input = document.getElementById("file")
+  let file = input.files[0]
 
-// import socket from "./socket"
-import {reader} from "./reader"
+  if (!file) return
+
+  let reader = new FileReader()
+
+  // Callback to send data to Elm once asnyc read process is complete
+  reader.onload = (event) => {
+    app.ports.fileRead.send({
+      name: file.name,
+      contents: event.target.result
+    })
+  }
+
+  reader.readAsText(file)
+}
+
+
+const app = Elm.Main.fullscreen()
+app.ports.fileSelected.subscribe(readFileData)

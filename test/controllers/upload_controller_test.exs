@@ -2,12 +2,13 @@ defmodule Reader.UploadControllerTest do
   use Reader.ConnCase
 
   test "create action returns parsed file as JSON", %{conn: conn} do
-    upload = %Plug.Upload{path: "test/fixtures/commas.csv", filename: "commas.csv"}
-    conn = post conn, "/api/upload", %{ file: upload }
+    filename = "commas.csv"
+    contents = File.read! "test/fixtures/commas.csv"
+    conn = post conn, "/api/upload", %{ filename: filename, contents: contents }
 
     assert json_response(conn, 200) == %{
       "filename" => "commas.csv",
-      "persons" => [
+      "people" => [
         %{
           "birthday" => "1945-04-14",   "color" => "Turquoise",
           "first" => "Shalonda",        "last" => "Radican",

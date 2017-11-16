@@ -1,8 +1,8 @@
 # CSV Reader
 
-A full-stack technical challenge I took too seriously, with asynchronous Vue.js on the front end and Elixir Phoenix on the back.
+A full-stack technical challenge I took too seriously, written in two different stacks. In this repo, you've got Elm on the front end and Elixir Phoenix on the back.
 
-([Also with a Ruby back end](https://github.com/philliplongman/csv-reader-vue))
+([Here's original app with Vue and Sinatra](https://github.com/philliplongman/csv-reader-vue))
 
 ### Requirement summary:
 
@@ -23,20 +23,27 @@ Since the project was so simple and didn't call for any persistence, I originall
 
 ### Conversion
 
-Converting the app seemed like a great first project for Elixir Phoenix. That was true on the back end.
+Converting the original app seemed like a great first project for Elixir and Elm.
 
-The front was a little more complicated. Brunch didn't play well with Vue, so I had to rip it out and use webpack to serve assets. I didn't want to convert my Slim files to the wordier EEx format, so I added PhoenixSlime. Later, an unsolvable JS problem with one of the Vue dependencies turned out to just be a slight syntax difference between Slim & Slime. If I have the opportunity in the future, I'd like to replace all of it with Elm.
+Getting into the functional mindset was a challenge for me. Since I'm a Rubyist, I had a much easier time with Elixir/Phoenix. I struggled a little more with the static typing and different syntax of Elm.
 
-I used ExUnit and Wallaby for testing. Wallaby with PhantomJS allowed me to test JavaScript integration, but I had to use Babel to transpile down to ES2015 so that PhantomJS could see Vue.
-
+I used ExUnit for testing the backend. Since Elm compiles into Javascript, I was able to use Wallaby with PhantomJS to test integration.
 
 
 ## Project info
 
-To run:
+You will need Elixir, Elm, and Yarn installed. To run the tests, you will need PhantomJS.
+
+To setup:
 ```
 mix deps.get
-npm install
+yarn install
+cd web/elm
+elm package install
+```
+
+To run:
+```
 mix phoenix.server
 ```
 The app will be served at [localhost:4000](http://localhost:4000).
