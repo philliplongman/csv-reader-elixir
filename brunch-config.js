@@ -63,7 +63,7 @@ exports.config = {
       outputFolder: "../static/js"
     },
     sass: {
-      mode: "ruby"
+      mode: "native"
     }
   },
 
