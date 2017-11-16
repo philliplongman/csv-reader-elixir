@@ -11908,7 +11908,7 @@ var _justinmimbs$elm_date_extra$Date_Extra$equalBy = F3(
 var _justinmimbs$elm_date_extra$Date_Extra$Second = {ctor: 'Second'};
 var _justinmimbs$elm_date_extra$Date_Extra$Millisecond = {ctor: 'Millisecond'};
 
-var _user$project$Person$Person = F7(
+var _user$project$Model_Person$Person = F7(
 	function (a, b, c, d, e, f, g) {
 		return {index: a, last: b, first: c, middle: d, pet: e, birthday: f, color: g};
 	});
@@ -11958,7 +11958,39 @@ var _user$project$Model$Model = F3(
 		return {filename: a, people: b, tableState: c};
 	});
 
-var _user$project$Components_Count$countView = function (_p0) {
+var _user$project$Update$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'FileSelected':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _user$project$Ports$fileSelected(
+						{ctor: '_Tuple0'})
+				};
+			case 'FileRead':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							filename: _elm_lang$core$Maybe$Just(_p0._0.name)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{tableState: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
+	});
+
+var _user$project$View_Count$countView = function (_p0) {
 	var _p1 = _p0;
 	var count = A3(
 		_elm_community$string_extra$String_Extra$pluralize,
@@ -11979,7 +12011,200 @@ var _user$project$Components_Count$countView = function (_p0) {
 		});
 };
 
-var _user$project$Components_FileUploader$uploaderView = function (_p0) {
+var _user$project$View_PeopleTable_DateColumn$viewDate = function (dateStr) {
+	var maybeDate = _justinmimbs$elm_date_extra$Date_Extra$fromIsoString(dateStr);
+	var _p0 = maybeDate;
+	if (_p0.ctor === 'Just') {
+		return A2(_justinmimbs$elm_date_extra$Date_Extra$toFormattedString, 'MM/dd/y', _p0._0);
+	} else {
+		return '';
+	}
+};
+var _user$project$View_PeopleTable_DateColumn$dateColumn = F2(
+	function (name, toDate) {
+		return _evancz$elm_sortable_table$Table$customColumn(
+			{
+				name: name,
+				viewData: function (data) {
+					return _user$project$View_PeopleTable_DateColumn$viewDate(
+						toDate(data));
+				},
+				sorter: _evancz$elm_sortable_table$Table$increasingOrDecreasingBy(toDate)
+			});
+	});
+
+var _user$project$View_PeopleTable_PetColumn$viewPet = function (petStr) {
+	var petClass = _elm_lang$core$String$toLower(
+		A2(_elm_lang$core$Basics_ops['++'], 'pet-', petStr));
+	return A2(
+		_evancz$elm_sortable_table$Table$HtmlDetails,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class(petClass),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(petStr),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$View_PeopleTable_PetColumn$petColumn = F2(
+	function (name, toStr) {
+		return _evancz$elm_sortable_table$Table$veryCustomColumn(
+			{
+				name: name,
+				viewData: function (data) {
+					return _user$project$View_PeopleTable_PetColumn$viewPet(
+						toStr(data));
+				},
+				sorter: _evancz$elm_sortable_table$Table$increasingOrDecreasingBy(toStr)
+			});
+	});
+
+var _user$project$View_PeopleTable$customHeadersHelper = function (_p0) {
+	var _p1 = _p0;
+	var sortClass = function () {
+		var _p2 = _p1._1;
+		if ((_p2.ctor === 'Reversible') && (_p2._0.ctor === 'Just')) {
+			return _p2._0._0 ? 'ascending' : 'descending';
+		} else {
+			return '';
+		}
+	}();
+	return A2(
+		_elm_lang$html$Html$th,
+		{
+			ctor: '::',
+			_0: _p1._2,
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(_p1._0),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class(sortClass),
+						_1: {ctor: '[]'}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$View_PeopleTable$customHeaders = function (headers) {
+	return A2(
+		_evancz$elm_sortable_table$Table$HtmlDetails,
+		{ctor: '[]'},
+		A2(_elm_lang$core$List$map, _user$project$View_PeopleTable$customHeadersHelper, headers));
+};
+var _user$project$View_PeopleTable$rowId = function (_p3) {
+	var _p4 = _p3;
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'Person',
+		_elm_lang$core$Basics$toString(_p4.index));
+};
+var _user$project$View_PeopleTable$config = _evancz$elm_sortable_table$Table$customConfig(
+	{
+		toId: _user$project$View_PeopleTable$rowId,
+		toMsg: _user$project$Msg$SetTableState,
+		columns: {
+			ctor: '::',
+			_0: A2(
+				_evancz$elm_sortable_table$Table$stringColumn,
+				'Last',
+				function (_) {
+					return _.last;
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_evancz$elm_sortable_table$Table$stringColumn,
+					'First',
+					function (_) {
+						return _.first;
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_evancz$elm_sortable_table$Table$stringColumn,
+						'Middle',
+						function (_) {
+							return _.middle;
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_user$project$View_PeopleTable_PetColumn$petColumn,
+							'Pet',
+							function (_) {
+								return _.pet;
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_user$project$View_PeopleTable_DateColumn$dateColumn,
+								'Birthday',
+								function (_) {
+									return _.birthday;
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_evancz$elm_sortable_table$Table$stringColumn,
+									'Color',
+									function (_) {
+										return _.color;
+									}),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}
+		},
+		customizations: _elm_lang$core$Native_Utils.update(
+			_evancz$elm_sortable_table$Table$defaultCustomizations,
+			{thead: _user$project$View_PeopleTable$customHeaders})
+	});
+var _user$project$View_PeopleTable$tableView = function (_p5) {
+	var _p6 = _p5;
+	var _p7 = _p6.people;
+	var message = _elm_lang$core$List$isEmpty(_p7) ? A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('empty'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('No records'),
+			_1: {ctor: '[]'}
+		}) : A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{ctor: '[]'});
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A3(_evancz$elm_sortable_table$Table$view, _user$project$View_PeopleTable$config, _p6.tableState, _p7),
+			_1: {
+				ctor: '::',
+				_0: message,
+				_1: {ctor: '[]'}
+			}
+		});
+};
+
+var _user$project$View_FileUploader$uploaderView = function (_p0) {
 	var _p1 = _p0;
 	var displayName = function () {
 		var _p2 = _p1.filename;
@@ -12093,231 +12318,6 @@ var _user$project$Components_FileUploader$uploaderView = function (_p0) {
 		});
 };
 
-var _user$project$Components_PeopleTable_DateColumn$viewDate = function (dateStr) {
-	var maybeDate = _justinmimbs$elm_date_extra$Date_Extra$fromIsoString(dateStr);
-	var _p0 = maybeDate;
-	if (_p0.ctor === 'Just') {
-		return A2(_justinmimbs$elm_date_extra$Date_Extra$toFormattedString, 'MM/dd/y', _p0._0);
-	} else {
-		return '';
-	}
-};
-var _user$project$Components_PeopleTable_DateColumn$dateColumn = F2(
-	function (name, toDate) {
-		return _evancz$elm_sortable_table$Table$customColumn(
-			{
-				name: name,
-				viewData: function (data) {
-					return _user$project$Components_PeopleTable_DateColumn$viewDate(
-						toDate(data));
-				},
-				sorter: _evancz$elm_sortable_table$Table$increasingOrDecreasingBy(toDate)
-			});
-	});
-
-var _user$project$Components_PeopleTable_PetColumn$viewPet = function (petStr) {
-	var petClass = _elm_lang$core$String$toLower(
-		A2(_elm_lang$core$Basics_ops['++'], 'pet-', petStr));
-	return A2(
-		_evancz$elm_sortable_table$Table$HtmlDetails,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class(petClass),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(petStr),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Components_PeopleTable_PetColumn$petColumn = F2(
-	function (name, toStr) {
-		return _evancz$elm_sortable_table$Table$veryCustomColumn(
-			{
-				name: name,
-				viewData: function (data) {
-					return _user$project$Components_PeopleTable_PetColumn$viewPet(
-						toStr(data));
-				},
-				sorter: _evancz$elm_sortable_table$Table$increasingOrDecreasingBy(toStr)
-			});
-	});
-
-var _user$project$Components_PeopleTable$customHeadersHelper = function (_p0) {
-	var _p1 = _p0;
-	var sortClass = function () {
-		var _p2 = _p1._1;
-		if ((_p2.ctor === 'Reversible') && (_p2._0.ctor === 'Just')) {
-			return _p2._0._0 ? 'ascending' : 'descending';
-		} else {
-			return '';
-		}
-	}();
-	return A2(
-		_elm_lang$html$Html$th,
-		{
-			ctor: '::',
-			_0: _p1._2,
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(_p1._0),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$span,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class(sortClass),
-						_1: {ctor: '[]'}
-					},
-					{ctor: '[]'}),
-				_1: {ctor: '[]'}
-			}
-		});
-};
-var _user$project$Components_PeopleTable$customHeaders = function (headers) {
-	return A2(
-		_evancz$elm_sortable_table$Table$HtmlDetails,
-		{ctor: '[]'},
-		A2(_elm_lang$core$List$map, _user$project$Components_PeopleTable$customHeadersHelper, headers));
-};
-var _user$project$Components_PeopleTable$rowId = function (_p3) {
-	var _p4 = _p3;
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		'Person',
-		_elm_lang$core$Basics$toString(_p4.index));
-};
-var _user$project$Components_PeopleTable$config = _evancz$elm_sortable_table$Table$customConfig(
-	{
-		toId: _user$project$Components_PeopleTable$rowId,
-		toMsg: _user$project$Msg$SetTableState,
-		columns: {
-			ctor: '::',
-			_0: A2(
-				_evancz$elm_sortable_table$Table$stringColumn,
-				'Last',
-				function (_) {
-					return _.last;
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_evancz$elm_sortable_table$Table$stringColumn,
-					'First',
-					function (_) {
-						return _.first;
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_evancz$elm_sortable_table$Table$stringColumn,
-						'Middle',
-						function (_) {
-							return _.middle;
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_user$project$Components_PeopleTable_PetColumn$petColumn,
-							'Pet',
-							function (_) {
-								return _.pet;
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_user$project$Components_PeopleTable_DateColumn$dateColumn,
-								'Birthday',
-								function (_) {
-									return _.birthday;
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_evancz$elm_sortable_table$Table$stringColumn,
-									'Color',
-									function (_) {
-										return _.color;
-									}),
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}
-			}
-		},
-		customizations: _elm_lang$core$Native_Utils.update(
-			_evancz$elm_sortable_table$Table$defaultCustomizations,
-			{thead: _user$project$Components_PeopleTable$customHeaders})
-	});
-var _user$project$Components_PeopleTable$tableView = function (_p5) {
-	var _p6 = _p5;
-	var _p7 = _p6.people;
-	var message = _elm_lang$core$List$isEmpty(_p7) ? A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('empty'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('No records'),
-			_1: {ctor: '[]'}
-		}) : A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{ctor: '[]'});
-	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A3(_evancz$elm_sortable_table$Table$view, _user$project$Components_PeopleTable$config, _p6.tableState, _p7),
-			_1: {
-				ctor: '::',
-				_0: message,
-				_1: {ctor: '[]'}
-			}
-		});
-};
-
-var _user$project$Update$update = F2(
-	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
-			case 'FileSelected':
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: _user$project$Ports$fileSelected(
-						{ctor: '_Tuple0'})
-				};
-			case 'FileRead':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							filename: _elm_lang$core$Maybe$Just(_p0._0.name)
-						}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			default:
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{tableState: _p0._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-		}
-	});
-
 var _user$project$View$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$main_,
@@ -12328,13 +12328,13 @@ var _user$project$View$view = function (model) {
 		},
 		{
 			ctor: '::',
-			_0: _user$project$Components_Count$countView(model),
+			_0: _user$project$View_Count$countView(model),
 			_1: {
 				ctor: '::',
-				_0: _user$project$Components_FileUploader$uploaderView(model),
+				_0: _user$project$View_FileUploader$uploaderView(model),
 				_1: {
 					ctor: '::',
-					_0: _user$project$Components_PeopleTable$tableView(model),
+					_0: _user$project$View_PeopleTable$tableView(model),
 					_1: {ctor: '[]'}
 				}
 			}

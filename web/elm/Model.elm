@@ -2,7 +2,7 @@ module Model exposing (..)
 
 
 import Table
-import Person exposing (Person)
+import Model.Person exposing (Person)
 import Msg exposing (Msg)
 
 

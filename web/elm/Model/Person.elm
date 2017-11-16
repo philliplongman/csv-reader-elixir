@@ -1,4 +1,4 @@
-module Person exposing (Person)
+module Model.Person exposing (Person)
 
 
 type alias Person =
