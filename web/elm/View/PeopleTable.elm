@@ -54,8 +54,8 @@ rowId { index } =
 customHeaders : List ( String, Status, Attribute msg ) -> HtmlDetails msg
 customHeaders headers =
   headers
-  |> List.map customHeadersHelper
-  |> HtmlDetails []
+    |> List.map customHeadersHelper
+    |> HtmlDetails []
 
 
 customHeadersHelper : ( String, Status, Attribute msg ) -> Html msg

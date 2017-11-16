@@ -12,8 +12,8 @@ countView {people} =
   let
     count =
       people
-      |> List.length
-      |> pluralize "person" "people"
+        |> List.length
+        |> pluralize "person" "people"
 
   in
     div [ class "count" ] [ text count ]
