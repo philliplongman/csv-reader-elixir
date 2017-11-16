@@ -25,7 +25,7 @@ erl_crash.dump
 
 /test/screenshots/
 
-web/elm/elm-stuff/build-artifacts/
-web/elm/elm-stuff/packages/
+web/elm/elm-stuff/
+web/elm/elm-stuff/
 
 /vue/
