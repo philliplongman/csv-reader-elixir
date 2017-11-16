@@ -1,4 +1,4 @@
-module Components.PeopleTable exposing (tableView)
+module View.PeopleTable exposing (tableView)
 
 
 import Html exposing (..)
@@ -7,8 +7,8 @@ import Table exposing (HtmlDetails, Status(..), defaultCustomizations)
 import Model exposing (..)
 import Msg exposing (..)
 import Person exposing (Person)
-import Components.PeopleTable.DateColumn exposing (dateColumn)
-import Components.PeopleTable.PetColumn exposing (petColumn)
+import View.PeopleTable.DateColumn exposing (dateColumn)
+import View.PeopleTable.PetColumn exposing (petColumn)
 
 
 tableView : Model -> Html Msg

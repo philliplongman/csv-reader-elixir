@@ -1,4 +1,4 @@
-module Components.PeopleTable.DateColumn exposing (dateColumn)
+module View.PeopleTable.DateColumn exposing (dateColumn)
 
 
 import Date.Extra as Date

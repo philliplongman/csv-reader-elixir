@@ -5,9 +5,9 @@ import Html exposing (Html, main_)
 import Html.Attributes exposing (attribute)
 import Model exposing (..)
 import Msg exposing (..)
-import Components.Count exposing (countView)
-import Components.PeopleTable exposing (tableView)
-import Components.FileUploader exposing (uploaderView)
+import View.Count exposing (countView)
+import View.PeopleTable exposing (tableView)
+import View.FileUploader exposing (uploaderView)
 
 
 view : Model -> Html Msg

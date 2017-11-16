@@ -1,4 +1,4 @@
-module Components.Count exposing (countView)
+module View.Count exposing (countView)
 
 
 import Html exposing (..)

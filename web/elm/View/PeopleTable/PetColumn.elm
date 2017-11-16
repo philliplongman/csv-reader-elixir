@@ -1,4 +1,4 @@
-module Components.PeopleTable.PetColumn exposing (petColumn)
+module View.PeopleTable.PetColumn exposing (petColumn)
 
 
 import Html exposing (text)

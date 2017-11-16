@@ -1,4 +1,4 @@
-module Components.FileUploader exposing (uploaderView)
+module View.FileUploader exposing (uploaderView)
 
 
 import Html exposing (..)
