@@ -5,33 +5,33 @@ defmodule Reader.UserViewsCSVsTest do
 
   test "user uploads and views CSV", %{session: session} do
     session
-    |> visit("/")
-    |> assert_has(css ".count", text: "0 people")
-    |> assert_has(css ".filename", text: "")
-    |> assert_has(css "tr", text: "No records")
-    |> make_visible("file")
-    |> attach_file(css("#file", []), path: "test/fixtures/commas.csv")
-    |> assert_has(css ".count", text: "3 people")
-    |> assert_has(css ".filename", text: "commas.csv")
-    |> assert_has(css ".person", count: 3)
+      |> visit("/")
+      |> assert_has(css ".count", text: "0 people")
+      |> assert_has(css ".filename", text: "")
+      |> assert_has(css "div.empty", text: "No records")
+      |> make_visible("file")
+      |> attach_file(css("#file", []), path: "test/fixtures/commas.csv")
+      |> assert_has(css ".count", text: "3 people")
+      |> assert_has(css ".filename", text: "commas.csv")
+      |> assert_has(css "tr", count: 3)
   end
 
   test "user sorts the table", %{session: session} do
     session
-    |> visit("/")
-    |> make_visible("file")
-    |> attach_file(css("#file", []), path: "test/fixtures/commas.csv")
-    |> get_first_person
-    |> assert =~ "Brinckerhoff Jennifer"
+      |> visit("/")
+      |> make_visible("file")
+      |> attach_file(css("#file", []), path: "test/fixtures/commas.csv")
+      |> get_first_person
+      |> assert =~ "Brinckerhoff Jennifer"
 
     session
-    |> click(css "th", text: "Last")
-    |> get_first_person
-    |> assert =~ "Votraw Moses"
+      |> click(css "th", text: "Last")
+      |> get_first_person
+      |> assert =~ "Votraw Moses"
   end
 
   defp get_first_person(parent) do
-    parent |> all(css ".person", []) |> List.first |> Element.text
+    parent |> all(css "tr", []) |> List.first |> Element.text
   end
 
   # Wallaby currently fails when attaching files to inputs with 'display: none'
