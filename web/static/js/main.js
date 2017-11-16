@@ -11908,16 +11908,46 @@ var _justinmimbs$elm_date_extra$Date_Extra$equalBy = F3(
 var _justinmimbs$elm_date_extra$Date_Extra$Second = {ctor: 'Second'};
 var _justinmimbs$elm_date_extra$Date_Extra$Millisecond = {ctor: 'Millisecond'};
 
+var _user$project$Person$Person = F7(
+	function (a, b, c, d, e, f, g) {
+		return {index: a, last: b, first: c, middle: d, pet: e, birthday: f, color: g};
+	});
+
+var _user$project$Ports$fileSelected = _elm_lang$core$Native_Platform.outgoingPort(
+	'fileSelected',
+	function (v) {
+		return null;
+	});
+var _user$project$Ports$fileRead = _elm_lang$core$Native_Platform.incomingPort(
+	'fileRead',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (name) {
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				function (contents) {
+					return _elm_lang$core$Json_Decode$succeed(
+						{name: name, contents: contents});
+				},
+				A2(_elm_lang$core$Json_Decode$field, 'contents', _elm_lang$core$Json_Decode$string));
+		},
+		A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string)));
+var _user$project$Ports$FileData = F2(
+	function (a, b) {
+		return {name: a, contents: b};
+	});
+
 var _user$project$Msg$SetTableState = function (a) {
 	return {ctor: 'SetTableState', _0: a};
 };
-var _user$project$Msg$UploadFile = function (a) {
-	return {ctor: 'UploadFile', _0: a};
+var _user$project$Msg$FileRead = function (a) {
+	return {ctor: 'FileRead', _0: a};
 };
+var _user$project$Msg$FileSelected = {ctor: 'FileSelected'};
 
 var _user$project$Model$init = function () {
 	var model = {
-		filename: '',
+		filename: _elm_lang$core$Maybe$Nothing,
 		people: {ctor: '[]'},
 		tableState: _evancz$elm_sortable_table$Table$initialSort('last')
 	};
@@ -11926,10 +11956,6 @@ var _user$project$Model$init = function () {
 var _user$project$Model$Model = F3(
 	function (a, b, c) {
 		return {filename: a, people: b, tableState: c};
-	});
-var _user$project$Model$Person = F7(
-	function (a, b, c, d, e, f, g) {
-		return {index: a, last: b, first: c, middle: d, pet: e, birthday: f, color: g};
 	});
 
 var _user$project$Components_Count$countView = function (_p0) {
@@ -11953,7 +11979,16 @@ var _user$project$Components_Count$countView = function (_p0) {
 		});
 };
 
-var _user$project$Components_FileUploader$uploaderView = function (model) {
+var _user$project$Components_FileUploader$uploaderView = function (_p0) {
+	var _p1 = _p0;
+	var displayName = function () {
+		var _p2 = _p1.filename;
+		if (_p2.ctor === 'Just') {
+			return _p2._0;
+		} else {
+			return '';
+		}
+	}();
 	return A2(
 		_elm_lang$html$Html$form,
 		{
@@ -11999,7 +12034,7 @@ var _user$project$Components_FileUploader$uploaderView = function (model) {
 							},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text(model.filename),
+								_0: _elm_lang$html$Html$text(displayName),
 								_1: {ctor: '[]'}
 							}),
 						_1: {
@@ -12038,7 +12073,10 @@ var _user$project$Components_FileUploader$uploaderView = function (model) {
 													_0: _elm_lang$html$Html_Attributes$type_('file'),
 													_1: {
 														ctor: '::',
-														_0: _elm_lang$html$Html_Events$onInput(_user$project$Msg$UploadFile),
+														_0: A2(
+															_elm_lang$html$Html_Events$on,
+															'change',
+															_elm_lang$core$Json_Decode$succeed(_user$project$Msg$FileSelected)),
 														_1: {ctor: '[]'}
 													}
 												}
@@ -12251,23 +12289,43 @@ var _user$project$Components_PeopleTable$tableView = function (_p5) {
 var _user$project$Update$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
-		if (_p0.ctor === 'UploadFile') {
-			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-		} else {
-			return {
-				ctor: '_Tuple2',
-				_0: _elm_lang$core$Native_Utils.update(
-					model,
-					{tableState: _p0._0}),
-				_1: _elm_lang$core$Platform_Cmd$none
-			};
+		switch (_p0.ctor) {
+			case 'FileSelected':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _user$project$Ports$fileSelected(
+						{ctor: '_Tuple0'})
+				};
+			case 'FileRead':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							filename: _elm_lang$core$Maybe$Just(_p0._0.name)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{tableState: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 		}
 	});
 
 var _user$project$View$view = function (model) {
 	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
+		_elm_lang$html$Html$main_,
+		{
+			ctor: '::',
+			_0: A2(_elm_lang$html$Html_Attributes$attribute, 'role', 'main'),
+			_1: {ctor: '[]'}
+		},
 		{
 			ctor: '::',
 			_0: _user$project$Components_Count$countView(model),
@@ -12283,11 +12341,12 @@ var _user$project$View$view = function (model) {
 		});
 };
 
-var _user$project$Main$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$none;
+var _user$project$Subscriptions$subscriptions = function (model) {
+	return _user$project$Ports$fileRead(_user$project$Msg$FileRead);
 };
+
 var _user$project$Main$main = _elm_lang$html$Html$program(
-	{init: _user$project$Model$init, update: _user$project$Update$update, view: _user$project$View$view, subscriptions: _user$project$Main$subscriptions})();
+	{init: _user$project$Model$init, update: _user$project$Update$update, view: _user$project$View$view, subscriptions: _user$project$Subscriptions$subscriptions})();
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

@@ -1,9 +1,9 @@
 module Components.Count exposing (countView)
 
+
 import Html exposing (..)
 import Html.Attributes exposing (class)
 import String.Extra exposing (pluralize)
-
 import Model exposing (..)
 
 

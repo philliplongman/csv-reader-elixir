@@ -1,12 +1,12 @@
 module Components.PeopleTable exposing (tableView)
 
+
 import Html exposing (..)
 import Html.Attributes exposing (class, classList)
 import Table exposing (HtmlDetails, Status(..), defaultCustomizations)
-
 import Model exposing (..)
 import Msg exposing (..)
-
+import Person exposing (Person)
 import Components.PeopleTable.DateColumn exposing (dateColumn)
 import Components.PeopleTable.PetColumn exposing (petColumn)
 

@@ -1,25 +1,15 @@
 module Model exposing (..)
 
-import Table
 
-import Msg exposing (..)
+import Table
+import Person exposing (Person)
+import Msg exposing (Msg)
 
 
 type alias Model =
-  { filename : String
+  { filename : Maybe String
   , people : List Person
   , tableState : Table.State
-  }
-
-
-type alias Person =
-  { index : Int
-  , last : String
-  , first : String
-  , middle : String
-  , pet : String
-  , birthday : String
-  , color : String
   }
 
 
@@ -27,7 +17,7 @@ init : (Model, Cmd Msg)
 init =
   let
     model =
-      { filename = ""
+      { filename = Nothing
       , people = []
       , tableState = Table.initialSort "last"
       }

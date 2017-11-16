@@ -1,8 +1,8 @@
 module Components.PeopleTable.PetColumn exposing (petColumn)
 
+
 import Html exposing (text)
 import Html.Attributes exposing (class)
-
 import Table exposing (Column)
 
 

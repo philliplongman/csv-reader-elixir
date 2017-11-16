@@ -1,7 +1,8 @@
 module Components.PeopleTable.DateColumn exposing (dateColumn)
 
-import Table exposing (Column)
+
 import Date.Extra as Date
+import Table exposing (Column)
 
 
 dateColumn : String -> (data -> String) -> Column data msg

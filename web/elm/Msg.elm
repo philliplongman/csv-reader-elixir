@@ -1,8 +1,11 @@
 module Msg exposing (..)
 
+
 import Table
+import Ports exposing (FileData)
 
 
 type Msg
-  = UploadFile String
+  = FileSelected
+  | FileRead FileData
   | SetTableState Table.State
