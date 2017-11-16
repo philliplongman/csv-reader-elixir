@@ -2,8 +2,7 @@ module Model.Person exposing (Person)
 
 
 type alias Person =
-  { index : Int
-  , last : String
+  { last : String
   , first : String
   , middle : String
   , pet : String

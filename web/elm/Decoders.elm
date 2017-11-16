@@ -1,7 +1,7 @@
 module Decoders exposing (decodePeople)
 
 
-import Json.Decode exposing (Decoder, field, int, list, string)
+import Json.Decode exposing (Decoder, field, list, string)
 import Json.Decode.Pipeline exposing (decode, required, optional)
 import Model.Person exposing (Person)
 
@@ -14,7 +14,6 @@ decodePeople =
 personDecoder : Decoder Person
 personDecoder =
   decode Person
-    |> required "index" int
     |> required "last" string
     |> required "first" string
     |> optional "middle" string ""

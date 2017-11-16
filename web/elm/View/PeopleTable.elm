@@ -31,7 +31,7 @@ tableView { people, tableState } =
 config : Table.Config Person Msg
 config =
   Table.customConfig
-    { toId = rowId
+    { toId = .last
     , toMsg = SetTableState
     , columns =
       [ Table.stringColumn "Last" .last
@@ -44,11 +44,6 @@ config =
     , customizations =
       { defaultCustomizations | thead = customHeaders }
     }
-
-
-rowId : Person -> String
-rowId { index } =
-  "Person" ++ toString index
 
 
 customHeaders : List ( String, Status, Attribute msg ) -> HtmlDetails msg

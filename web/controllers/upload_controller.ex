@@ -3,9 +3,9 @@ defmodule Reader.UploadController do
   alias Reader.CSV
 
   def create(conn, params) do
-    filename = params["file"].filename
-    persons = CSV.read params["file"].path
+    filename = params["filename"]
+    people = CSV.read params["contents"]
 
-    render conn, filename: filename, persons: persons
+    render conn, filename: filename, people: people
   end
 end

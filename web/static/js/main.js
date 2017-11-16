@@ -12349,9 +12349,9 @@ var _justinmimbs$elm_date_extra$Date_Extra$equalBy = F3(
 var _justinmimbs$elm_date_extra$Date_Extra$Second = {ctor: 'Second'};
 var _justinmimbs$elm_date_extra$Date_Extra$Millisecond = {ctor: 'Millisecond'};
 
-var _user$project$Model_Person$Person = F7(
-	function (a, b, c, d, e, f, g) {
-		return {index: a, last: b, first: c, middle: d, pet: e, birthday: f, color: g};
+var _user$project$Model_Person$Person = F6(
+	function (a, b, c, d, e, f) {
+		return {last: a, first: b, middle: c, pet: d, birthday: e, color: f};
 	});
 
 var _user$project$Decoders$personDecoder = A3(
@@ -12379,11 +12379,7 @@ var _user$project$Decoders$personDecoder = A3(
 						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 						'last',
 						_elm_lang$core$Json_Decode$string,
-						A3(
-							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-							'index',
-							_elm_lang$core$Json_Decode$int,
-							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Model_Person$Person))))))));
+						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Model_Person$Person)))))));
 var _user$project$Decoders$decodePeople = A2(
 	_elm_lang$core$Json_Decode$field,
 	'people',
@@ -12622,16 +12618,11 @@ var _user$project$View_PeopleTable$customHeaders = function (headers) {
 		{ctor: '[]'},
 		A2(_elm_lang$core$List$map, _user$project$View_PeopleTable$customHeadersHelper, headers));
 };
-var _user$project$View_PeopleTable$rowId = function (_p3) {
-	var _p4 = _p3;
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		'Person',
-		_elm_lang$core$Basics$toString(_p4.index));
-};
 var _user$project$View_PeopleTable$config = _evancz$elm_sortable_table$Table$customConfig(
 	{
-		toId: _user$project$View_PeopleTable$rowId,
+		toId: function (_) {
+			return _.last;
+		},
 		toMsg: _user$project$Msg$SetTableState,
 		columns: {
 			ctor: '::',
@@ -12692,10 +12683,10 @@ var _user$project$View_PeopleTable$config = _evancz$elm_sortable_table$Table$cus
 			_evancz$elm_sortable_table$Table$defaultCustomizations,
 			{thead: _user$project$View_PeopleTable$customHeaders})
 	});
-var _user$project$View_PeopleTable$tableView = function (_p5) {
-	var _p6 = _p5;
-	var _p7 = _p6.people;
-	var message = _elm_lang$core$List$isEmpty(_p7) ? A2(
+var _user$project$View_PeopleTable$tableView = function (_p3) {
+	var _p4 = _p3;
+	var _p5 = _p4.people;
+	var message = _elm_lang$core$List$isEmpty(_p5) ? A2(
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
@@ -12715,7 +12706,7 @@ var _user$project$View_PeopleTable$tableView = function (_p5) {
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: A3(_evancz$elm_sortable_table$Table$view, _user$project$View_PeopleTable$config, _p6.tableState, _p7),
+			_0: A3(_evancz$elm_sortable_table$Table$view, _user$project$View_PeopleTable$config, _p4.tableState, _p5),
 			_1: {
 				ctor: '::',
 				_0: message,

@@ -52,10 +52,10 @@ defmodule Reader.Person do
 
   defp parse_birthday(birthday) do
     [m, d, y] =
-      String.split(birthday, ~r{-|/})
-      |> Enum.map(&String.to_integer/1)
+      String.split(birthday, ~r{-|/}) |> Enum.map(&String.to_integer/1)
 
     {_, date} = Date.new(y, m, d)
+
     date
   end
 
