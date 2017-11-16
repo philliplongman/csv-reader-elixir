@@ -28,7 +28,7 @@ update msg model =
       )
 
     FileParsed (Err _) ->
-      ( model
+      ( { model | people = [] }
       , Cmd.none
       )
 
