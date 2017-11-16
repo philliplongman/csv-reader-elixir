@@ -12711,7 +12711,11 @@ var _user$project$View_PeopleTable$tableView = function (_p3) {
 		{ctor: '[]'});
 	return A2(
 		_elm_lang$html$Html$div,
-		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('people-table'),
+			_1: {ctor: '[]'}
+		},
 		{
 			ctor: '::',
 			_0: A3(_evancz$elm_sortable_table$Table$view, _user$project$View_PeopleTable$config, _p4.tableState, _p5),
@@ -12737,8 +12741,12 @@ var _user$project$View_FileUploader$uploaderView = function (_p0) {
 		_elm_lang$html$Html$form,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$enctype('multipart/form-data'),
-			_1: {ctor: '[]'}
+			_0: _elm_lang$html$Html_Attributes$class('file-uploader'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$enctype('multipart/form-data'),
+				_1: {ctor: '[]'}
+			}
 		},
 		{
 			ctor: '::',

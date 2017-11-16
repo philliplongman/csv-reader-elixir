@@ -61,6 +61,9 @@ exports.config = {
       mainModules: ["Main.elm"],
       makeParameters: ['--warn'],
       outputFolder: "../static/js"
+    },
+    sass: {
+      mode: "ruby"
     }
   },
 

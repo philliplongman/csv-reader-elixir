@@ -18,7 +18,7 @@ uploaderView {filename} =
         Nothing   -> ""
 
   in
-    form [ enctype "multipart/form-data" ]
+    form [ class "file-uploader", enctype "multipart/form-data" ]
       [ label [ for "file" ] [ text "Import a file" ]
       , div [ class "inputs" ]
         [ label [ class "filename", for "file" ] [ text displayName ]

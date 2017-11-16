@@ -22,7 +22,7 @@ tableView { people, tableState } =
         div [] []
 
   in
-    div []
+    div [ class "people-table" ]
       [ Table.view config tableState people
       , message
       ]
